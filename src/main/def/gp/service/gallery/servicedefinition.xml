@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.lumis.com.br/lumisportal/xsd/servicedefinition.xsd">
+	<service name="STR_SERVICE_NAME" id="gp.service.gallery" type="lum_doui">
+		<description>STR_SERVICE_DESCRIPTION</description>
+	</service>
+	<interfaces>
+	
+		<interface id="administration" name="STR_ADMINISTRATION" type="lum_douiAdministrationList">
+		</interface>
+		
+		<interface id="add" name="STR_ADD" type="lum_douiAdministrationAddPropertyPage">
+		</interface>
+		
+		<interface id="edit" name="STR_EDIT" type="lum_douiAdministrationEditPropertyPage">
+			<popupWindowProperties>width=655,height=500,top=20</popupWindowProperties>
+		</interface>		
+	</interfaces>
+</serviceDefinition>

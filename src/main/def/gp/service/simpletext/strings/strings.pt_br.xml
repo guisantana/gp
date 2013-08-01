@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<strings>
+	<string id="STR_SERVICE_NAME"><![CDATA[Guias e Portais - Texto Simples]]></string>
+	<string id="STR_SERVICE_DESCRIPTION"><![CDATA[Serviço que possibilita o cadastro de conteúdos html com imagem de introdução e no conteúdo]]></string>
+	<string id="STR_TITLE">Título</string>
+	<string id="STR_INTRODUCTION_IMAGE">Imagem de Introdução</string>
+	<string id="STR_INTRODUCTION">Introdução</string>
+	<string id="STR_CONTENT_IMAGE">Imagem Principal</string>
+	<string id="STR_CONTENT">Conteúdo</string>
+</strings>

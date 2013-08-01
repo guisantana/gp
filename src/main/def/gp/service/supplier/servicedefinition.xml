@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Revision: 7138 $ $Date: 2007-06-01 11:49:25 -0300 (Fri, 01 Jun 2007) $ -->
+<serviceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.lumis.com.br/lumisportal/xsd/servicedefinition.xsd">
+
+	<service id="gp.service.supplier" name="STR_SERVICE_NAME" type="lum_content">
+		<description>STR_SERVICE_DESCRIPTION</description>
+		<workflow enabled="true"/>
+	</service>
+
+	<interfaces>
+		
+		<!-- user interfaces -->
+
+		<interface id="list" name="STR_LIST" type="lum_contentList"/>
+		
+		<interface id="details" name="STR_DETAILS" type="lum_contentDetails"/>
+		
+		<!-- administration interfaces -->
+		
+		<interface id="administrationGroup" name="STR_GROUP_ADMINISTRATION" type="lum_contentAdministrationList">
+			<permissions>
+				<permission id="EDIT_SERVICE_INSTANCE_CONTENT"/>
+			</permissions>
+		</interface>
+			
+		<interface id="addGroup" name="STR_GROUP_ADD" type="lum_contentAdministrationAddPropertyPage">
+			<permissions>
+				<permission id="EDIT_SERVICE_INSTANCE_CONTENT"/>
+			</permissions>
+		</interface>
+		
+		<interface id="editGroup" name="STR_GROUP_EDIT" type="lum_contentAdministrationEditPropertyPage">
+			<permissions>
+				<permission id="EDIT_SERVICE_INSTANCE_CONTENT"/>
+			</permissions>
+		</interface>
+		
+		
+		<interface id="administrationCategory" name="STR_CATEGORY_ADMINISTRATION" type="lum_contentAdministrationList">
+			<permissions>
+				<permission id="EDIT_SERVICE_INSTANCE_CONTENT"/>
+			</permissions>
+		</interface>
+			
+		<interface id="addCategory" name="STR_CATEGORY_ADD" type="lum_contentAdministrationAddPropertyPage">
+			<permissions>
+				<permission id="EDIT_SERVICE_INSTANCE_CONTENT"/>
+			</permissions>
+		</interface>
+		
+		<interface id="editCategory" name="STR_CATEGORY_EDIT" type="lum_contentAdministrationEditPropertyPage">
+			<permissions>
+				<permission id="EDIT_SERVICE_INSTANCE_CONTENT"/>
+			</permissions>
+		</interface>
+
+
+		<interface id="administration" name="STR_ADMINISTRATION" type="lum_contentAdministrationList">
+			<permissions>
+				<permission id="EDIT_SERVICE_INSTANCE_CONTENT"/>
+			</permissions>
+		</interface>
+			
+		<interface id="add" name="STR_ADD" type="lum_contentAdministrationAddPropertyPage"/>
+		
+		<interface id="edit" name="STR_EDIT" type="lum_contentAdministrationEditPropertyPage"/>		
+		
+	</interfaces>
+
+</serviceDefinition>

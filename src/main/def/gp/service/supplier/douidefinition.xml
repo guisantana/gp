@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doui:douiDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doui="http://www.lumis.com.br/lumisportal/xsd/doui"  xmlns:control="http://www.lumis.com.br/douicontrols">
+	<service id="gp.service.supplier">
+		<sources>
+			<source id="default" type="contentTable">
+				<table>gp_Supplier</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="title" name="STR_TITLE" dataType="string" isPrimaryName="true" required="true"/>
+					<field id="logo" name="STR_LOGO" dataType="media" />
+					<field id="introduction" name="STR_INTRODUCTION" dataType="text" isIntroduction="true" required="true"/>
+					<field id="description" name="STR_DESCRIPTION" dataType="html" required="true"/>
+					<field id="email" name="STR_EMAIL" dataType="string" required="true"/>
+					<field id="site" name="STR_SITE" dataType="string" />
+					<field id="telephone" name="STR_TELEPHONE" dataType="string" />
+					<field id="mobilePhone" name="STR_MOBILE_TELEPHONE" dataType="string" />
+					<field id="address" name="STR_ADDRESS" dataType="text" />
+					<field id="video" name="STR_VIDEO" dataType="string" />
+				</fields>
+				<metaData>
+					<comments/>
+					<highlight/>
+					<publishToSocialNetwork/>					
+					<serviceInstanceIsolation/>
+					<workflow/>
+				</metaData>
+			</source>
+
+			<source id="category" type="contentTable">
+				<table>gp_SupplierCategory</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="groupId" name="STR_GROUP" dataType="guid" required="true" lookupFieldId="name" lookupRelationId="group"/>
+					<field id="name" name="STR_NAME" dataType="string" isPrimaryName="true" required="true"/>
+					<field id="image" name="STR_IMAGE" dataType="media" />
+					<field id="description" name="STR_DESCRIPTION" dataType="text" isIntroduction="true" />
+				</fields>
+				<metaData>
+					<serviceInstanceIsolation/>
+				</metaData>
+				<relations>
+					<relation id="group">
+						<relationField fieldId="groupId" foreignFieldId="id"/>
+					</relation>
+				</relations>
+			</source>
+			
+			<source id="group" type="contentTable">
+				<table>gp_SupplierCategoryGroup</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="name" name="STR_NAME" dataType="string" isPrimaryName="true" required="true" />
+				</fields>
+				<metaData>
+					<serviceInstanceIsolation/>
+				</metaData>
+			</source>
+			
+			<!-- source id="supplierCategory" type="table">
+				<table>gp_SupplierRelation</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="idSupplier" name="STR_SUPPLIER" dataType="string" display="false"/>
+					<field id="idCategory" name="STR_CATEGORY" dataType="string" lookupFieldId="name" lookupRelationId="category"/>
+				</fields>
+				<relations>
+					<relation id="category" cascadeOnDelete="true">
+						<relationField fieldId="idCategory" foreignFieldId="id" />
+					</relation>
+				</relations>
+			</source-->			
+		</sources>
+	</service>
+	
+	<interfaces>
+	
+		<interface id="administrationGroup">
+			<sources>
+				<source id="group"/>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_interfaceHeader/>
+					<control:lum_autoAdminListButtons addInterfaceId="addGroup" editInterfaceId="editGroup" />
+					<control:lum_adminList id="adminList" dataId="id" sourceId="group"/>
+				</control:lum_form>
+			</controls>
+		</interface>
+		
+		<interface id="addGroup">
+			<sources>
+				<source id="group"/>
+			</sources>
+		</interface>
+		
+		<interface id="editGroup">
+			<sources>
+				<source id="group"/>
+			</sources>
+		</interface>
+			
+		<interface id="administrationCategory">
+			<sources>
+				<source id="category" />
+				<source id="group"/>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_interfaceHeader/>
+					<control:lum_autoAdminListButtons addInterfaceId="addCategory" editInterfaceId="editCategory" />
+					<control:lum_adminList id="adminList" dataId="id" sourceId="category"/>
+				</control:lum_form>
+			</controls>
+		</interface>
+		
+		<interface id="addCategory">
+			<sources>
+				<source id="category">
+					<fields inherit="all">
+						<field id="groupId" doLookup="true">
+							<defaultInputControl>
+								<control:lum_dropDownList optionsSourceId="group"/>
+							</defaultInputControl>
+						</field>
+					</fields>
+				</source>
+				<source id="group"/>
+			</sources>
+		</interface>
+		
+		<interface id="editCategory">
+			<sources>
+				<source id="category" />
+				<source id="group"/>
+			</sources>
+		</interface>
+		
+		<!-- interface id="add">
+			<sources>
+				<source id="default" />
+				<source id="category" />
+				<source id="supplierCategory" />
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_controlGroup>
+						<control:lum_propertyPage>
+							<control:lum_tabs height="500" id="editTabs" tabType="2">
+								<tab name="STR_GENERAL">
+									<control:lum_controlGroup title="STR_BASIC_INFO">
+										<control:lum_table>
+											<tr>
+												<td width="80"><control:lum_label dataId="name" /></td>
+												<td><control:lum_inputText id="name" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="image" /></td>
+												<td><control:lum_imagePicker id="image" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="introduction" /></td>
+												<td><control:lum_inputTextArea id="introduction" /></td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<control:lum_label dataId="content" />
+												</td>
+											</tr>
+											<tr>
+												 <td colspan="2">
+													<control:lum_inputHtmlEditor id="content" />
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="published" /></td>
+												<td><control:lum_dropDownList id="published" /></td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+									<control:lum_controlGroup title="STR_CONTACT">
+										<control:lum_table>
+											<tr>
+												<td width="80"><control:lum_label dataId="email" /></td>
+												<td>
+													<control:lum_inputText id="email">
+														<control:lum_emailValidator/>
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="budgetEmail" /></td>
+												<td>
+													<control:lum_inputText id="budgetEmail">
+														<control:lum_emailValidator/>
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="site" /></td>
+												<td>
+													<control:lum_inputText id="site" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="siteValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="phone" /></td>
+												<td><control:lum_inputNumber id="dddPhone" /><control:lum_inputText id="phone" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="cellPhone" /></td>
+												<td><control:lum_inputNumber id="dddCellPhone" /><control:lum_inputText id="cellPhone" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="nextel" /></td>
+												<td><control:lum_inputText id="nextel" /></td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+								</tab>
+								<tab name="STR_ADVANCED">
+									<control:lum_controlGroup title="STR_LOCALE">
+										<control:lum_table>
+											<tr>
+												<td width="94"><control:lum_label dataId="street" /></td>
+												<td><control:lum_dropDownList id="street"/></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="address" /></td>
+												<td><control:lum_inputText id="address" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="number" /></td>
+												<td><control:lum_inputNumber id="number" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="complement" /></td>
+												<td><control:lum_inputText id="complement" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="district" /></td>
+												<td><control:lum_inputText id="district" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="city" /></td>
+												<td><control:lum_inputText id="city" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="uf" /></td>
+												<td><control:lum_inputText id="uf" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="cep" /></td>
+												<td><control:lum_inputText id="cep" /></td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+									<control:lum_controlGroup title="STR_SOCIAL_NETWORK">
+										<control:lum_table>
+											<tr>
+												<td width="94"><control:lum_label dataId="youtube" /></td>
+												<td>
+													<control:lum_inputText id="youtube" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="youtubeValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="twitter" /></td>
+												<td>
+													<control:lum_inputText id="twitter" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="twitterValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="orkut" /></td>
+												<td>
+													<control:lum_inputText id="orkut" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="orkutValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="facebook" /></td>
+												<td>
+													<control:lum_inputText id="facebook" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="facebookValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="fotolog" /></td>
+												<td>
+													<control:lum_inputText id="fotolog" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="fotologValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="blog" /></td>
+												<td>
+													<control:lum_inputText id="blog" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="blogValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+								</tab>
+								<tab name="STR_CATEGORY">
+									<control:lum_table width="100%">
+										<tr>
+											<td>
+												<control:lum_dataGrid id="dataGridCategory" sourceId="supplierCategory" showHeader="false"/>
+											</td>
+										</tr>
+									</control:lum_table>
+								</tab>
+							</control:lum_tabs>
+						</control:lum_propertyPage>
+					</control:lum_controlGroup>
+				</control:lum_form>
+			</controls>
+			<processActions>
+				<processAction id="commit" type="tableAddData" sourceId="default" />			
+				<processAction id="commit" type="tableAddMultiRowData" sourceId="supplierCategory">
+					<totalRowsParameterId>dataGridCategory.numberOfRows</totalRowsParameterId>
+					<rowsDeletedParameterId>dataGridCategory.rowsDeleted</rowsDeletedParameterId>
+					<fieldValues>
+						<fieldValue id="idSupplier" type="responseRenderParameter">PAGE_PARAMETER_ITEMID</fieldValue>
+					</fieldValues>
+					<response type="doui_standardPopup"/>
+				</processAction>
+				<processAction id="commit" className="guiaseportais.noivas.service.supplier.SupplierProcessActionHandler"/>
+			</processActions>
+		</interface>
+		
+		<interface id="edit">
+			<sources>
+				<source id="default">
+					<filters>
+						<filter id="id" hidden="true" required="true"/>
+					</filters>
+				</source>
+				<source id="category" />
+				<source id="supplierCategory">
+					<filters>
+						<filter id="idSupplier" requestParameterName="id" required="true" hidden="true"/>
+					</filters>
+				</source>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_filters id="supplierFilter" sourceId="default"/>
+					<control:lum_filters id="supplierCategoryFilter" sourceId="supplierCategory"/>
+					<control:lum_controlGroup>
+						<control:lum_propertyPage>
+							<control:lum_tabs height="500" id="editTabs" tabType="2">
+								<tab name="STR_GENERAL">
+									<control:lum_controlGroup title="STR_BASIC_INFO">
+										<control:lum_table>
+											<tr>
+												<td width="80"><control:lum_label dataId="name" /></td>
+												<td><control:lum_inputText id="name" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="image" /></td>
+												<td><control:lum_imagePicker id="image" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="introduction" /></td>
+												<td><control:lum_inputTextArea id="introduction" /></td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<control:lum_label dataId="content" />
+												</td>
+											</tr>
+											<tr>
+												 <td colspan="2">
+													<control:lum_inputHtmlEditor id="content" />
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="published" /></td>
+												<td><control:lum_dropDownList id="published" /></td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+									<control:lum_controlGroup title="STR_CONTACT">
+										<control:lum_table>
+											<tr>
+												<td width="80"><control:lum_label dataId="email" /></td>
+												<td>
+													<control:lum_inputText id="email">
+														<control:lum_emailValidator/>
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="budgetEmail" /></td>
+												<td>
+													<control:lum_inputText id="budgetEmail">
+														<control:lum_emailValidator/>
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="site" /></td>
+												<td>
+													<control:lum_inputText id="site" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="siteValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="phone" /></td>
+												<td><control:lum_inputNumber id="dddPhone" /><control:lum_inputText id="phone" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="cellPhone" /></td>
+												<td><control:lum_inputNumber id="dddCellPhone" /><control:lum_inputText id="cellPhone" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="nextel" /></td>
+												<td><control:lum_inputText id="nextel" /></td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+								</tab>
+								<tab name="STR_ADVANCED">
+									<control:lum_controlGroup title="STR_LOCALE">
+										<control:lum_table>
+											<tr>
+												<td width="94"><control:lum_label dataId="street" /></td>
+												<td><control:lum_dropDownList id="street"/></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="address" /></td>
+												<td><control:lum_inputText id="address" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="number" /></td>
+												<td><control:lum_inputNumber id="number" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="complement" /></td>
+												<td><control:lum_inputText id="complement" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="district" /></td>
+												<td><control:lum_inputText id="district" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="city" /></td>
+												<td><control:lum_inputText id="city" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="uf" /></td>
+												<td><control:lum_inputText id="uf" /></td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="cep" /></td>
+												<td><control:lum_inputText id="cep" /></td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+									<control:lum_controlGroup title="STR_SOCIAL_NETWORK">
+										<control:lum_table>
+											<tr>
+												<td width="94"><control:lum_label dataId="youtube" /></td>
+												<td>
+													<control:lum_inputText id="youtube" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="youtubeValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="twitter" /></td>
+												<td>
+													<control:lum_inputText id="twitter" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="twitterValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="orkut" /></td>
+												<td>
+													<control:lum_inputText id="orkut" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="orkutValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="facebook" /></td>
+												<td>
+													<control:lum_inputText id="facebook" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="facebookValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="fotolog" /></td>
+												<td>
+													<control:lum_inputText id="fotolog" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="fotologValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+											<tr>
+												<td><control:lum_label dataId="blog" /></td>
+												<td>
+													<control:lum_inputText id="blog" defaultValue="http://">
+														<control:lum_regularExpressionValidator id="blogValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" />
+													</control:lum_inputText>
+												</td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+								</tab>
+								<tab name="STR_CATEGORY">
+									<control:lum_controlGroup title="STR_CATEGORY">
+										<control:lum_table width="100%">
+											<tr>
+												<td>
+													<control:lum_dataGrid id="dataGridCategory" sourceId="supplierCategory" showHeader="false"/>
+												</td>
+											</tr>
+										</control:lum_table>
+									</control:lum_controlGroup>
+								</tab>
+							</control:lum_tabs>
+						</control:lum_propertyPage>
+					</control:lum_controlGroup>
+				</control:lum_form>
+			</controls>
+			<processActions>
+				<processAction id="commit" type="tableUpdateData" sourceId="default" />			
+				<processAction id="commit" type="tableUpdateMultiRowData" sourceId="supplierCategory">
+					<totalRowsParameterId>dataGridCategory.numberOfRows</totalRowsParameterId>
+					<rowsDeletedParameterId>dataGridCategory.rowsDeleted</rowsDeletedParameterId>
+					<fieldValues>
+						<fieldValue id="idSupplier" type="parameter">idSupplier</fieldValue>
+					</fieldValues>
+					<response type="doui_standardPopup"/>
+				</processAction>
+				<processAction id="commit" className="guiaseportais.noivas.service.supplier.SupplierProcessActionHandler"/>
+			</processActions>
+		</interface-->
+		
+	</interfaces>
+</doui:douiDefinition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doui:douiDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doui="http://www.lumis.com.br/lumisportal/xsd/doui"  xmlns:control="http://www.lumis.com.br/douicontrols">
+	<service id="gp.service.simpletext">
+		<sources>
+			<source id="default" type="contentTable">
+				<table>gp_SimpleText</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="title" name="STR_TITLE" dataType="string" isPrimaryName="true" required="true"/>
+					<field id="introductionImage" name="STR_INTRODUCTION_IMAGE" dataType="media" />
+					<field id="introduction" name="STR_INTRODUCTION" dataType="text" isIntroduction="true" />
+					<field id="content" name="STR_CONTENT" dataType="html" required="true"/>
+				</fields>
+				<metaData>
+					<comments/>
+					<highlight/>
+					<publishToSocialNetwork/>
+					<publishStartDate/>
+					<publishEndDate/>
+					<serviceInstanceIsolation/>
+					<workflow/>
+				</metaData>
+			</source>
+		</sources>
+	</service>
+	
+	<interfaces>
+		<interface id="list">
+			<sources>
+				<source id="default">
+					<fields>
+						<field id="title"/>
+						<field id="introductionImage"/>
+						<field id="introduction"/>
+						<field id="content"/>
+					</fields>
+				</source>
+			</sources>
+		</interface>
+	</interfaces>
+</doui:douiDefinition>

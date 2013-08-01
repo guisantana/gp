@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<strings>
+	<string id="STR_SERVICE_NAME"><![CDATA[Guias e Portais - Fornecedor]]></string>
+	<string id="STR_SERVICE_DESCRIPTION"><![CDATA[Serviço que possibilita o cadastro de fornecedores]]></string>
+	<string id="STR_IMAGE">Logo</string>
+	<string id="STR_INTRODUCTION">Introdução</string>
+	<string id="STR_CONTENT">Conteúdo</string>
+	<string id="STR_BUDGET_EMAIL">E-mail Orçamento</string>
+	<string id="STR_SITE">Site</string>
+	<string id="STR_DDD_PHONE">DDD</string>
+	<string id="STR_PHONE">Telefone</string>
+	<string id="STR_DDD_CELL_PHONE">DDD Celular</string>
+	<string id="STR_CELL_PHONE">Celular</string>
+	<string id="STR_NEXTEL">Nextel</string>
+	<string id="STR_STREET">Logradouro</string>
+	<string id="STR_ADDRESS">Endereço</string>
+	<string id="STR_NUMBER">Número</string>
+	<string id="STR_COMPLEMENT">Complemento</string>
+	<string id="STR_DISTRICT">Bairro</string>
+	<string id="STR_CITY">Cidade</string>
+	<string id="STR_UF">UF</string>
+	<string id="STR_CEP">CEP</string>
+	<string id="STR_YOUTUBE">Youtube</string>
+	<string id="STR_TWITTER">Twitter</string>
+	<string id="STR_ORKUT">Orkut</string>
+	<string id="STR_FACEBOOK">Facebook</string>
+	<string id="STR_FOTOLOG">Fotolog</string>
+	<string id="STR_BLOG">Blog</string>
+	<string id="STR_PUBLISHED">Publicado</string>
+	<string id="STR_BASIC_INFO">Informações Básicas</string>
+	<string id="STR_CONTACT">Contato</string>
+	<string id="STR_LOCALE">Localização</string>
+	<string id="STR_SOCIAL_NETWORK">Redes Sociais</string>
+	<string id="STR_EMAIL_SUBJECT">[%1] - Orçamento Prático</string>
+	<string id="STR_EMAIL_BODY">
+	<![CDATA[<font style="font-family: arial; font-size:12px;">Prezado(a) %1, <br/><br/> 
+		Este e-mail foi enviado pelo formulário do serviço Orçamento Prático do Portal %2.
+		O usuário %3 solicitou orçamento do seus serviços/produtos através do nosso site.<br/><br/>
+		Acesse o pedido de orçamento através do link abaixo:<br/>
+		%4
+		</font>
+	]]></string>
+	<string id="STR_CREATED_DATE">Criação</string>
+	<string id="STR_MODIFIED_DATE">Atualização</string>
+	<string id="STR_STATUS">Estado</string>
+</strings>

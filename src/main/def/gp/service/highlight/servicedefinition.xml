@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.lumis.com.br/lumisportal/xsd/servicedefinition.xsd">
+
+	<service id="gp.service.highlight" name="STR_SERVICE_NAME" type="lum_content">
+		<description>STR_SERVICE_DESCRIPTION</description>
+		<workflow enabled="true"/>
+	</service>
+
+	<interfaces>
+		
+		<!-- user interfaces -->
+
+		<interface id="list" name="STR_LIST" type="lum_contentList">
+			<styles>
+				<style name="mainHighlight" path="gp/service/highlight/style/home_mainHighlight.xsl" id="mainHighlight" isDefault="true"/>
+				<style name="mainHighlightPagination" path="gp/service/highlight/style/home_mainHighlightPagination.xsl" id="mainHighlightPagination"/>
+				<style name="secondaryHighlight-1" path="gp/service/highlight/style/home_secondaryHighlight-1.xsl" id="secondaryHighlight-1"/>
+				<style name="secondaryHighlight-2" path="gp/service/highlight/style/home_secondaryHighlight-2.xsl" id="secondaryHighlight-2"/>
+				<style name="secondaryHighlight-3" path="gp/service/highlight/style/home_secondaryHighlight-3.xsl" id="secondaryHighlight-3"/>
+			</styles>
+		</interface>
+		
+		<interface id="details" name="STR_DETAILS" type="lum_contentDetails"/>
+		
+		<!-- administration interfaces -->
+
+		<interface id="administration" name="STR_ADMINISTRATION" type="lum_contentAdministrationList" />
+			
+		<interface id="add" name="STR_ADD" type="lum_contentAdministrationAddPropertyPage"/>
+		
+		<interface id="edit" name="STR_EDIT" type="lum_contentAdministrationEditPropertyPage"/>
+		
+	</interfaces>
+
+</serviceDefinition>

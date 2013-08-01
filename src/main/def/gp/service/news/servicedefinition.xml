@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.lumis.com.br/lumisportal/xsd/servicedefinition.xsd">
+
+	<service id="gp.service.news" name="STR_SERVICE_NAME" type="lum_content">
+		<description>STR_SERVICE_DESCRIPTION</description>
+		<workflow enabled="true"/>
+	</service>
+
+	<interfaces>
+		
+		<!-- user interfaces -->
+		
+		<interface id="listCategory" name="STR_LIST_CATEGORY" type="lum_contentList">
+			<styles>
+				<style name="mainHighlight" path="gp/service/news/style/menu_categoryList.xsl" id="menuCategoryList" isDefault="true"/>
+			</styles>
+		</interface>
+
+		<interface id="list" name="STR_LIST" type="lum_contentList"/>
+		
+		<interface id="details" name="STR_DETAILS" type="lum_contentDetails"/>
+		
+		<!-- administration interfaces -->
+		
+		<interface id="administrationCategory" name="STR_CATEGORY_ADMINISTRATION" type="lum_contentAdministrationList"/>
+			
+		<interface id="addCategory" name="STR_ADD_CATEGORY" type="lum_contentAdministrationAddPropertyPage"/>
+		
+		<interface id="editCategory" name="STR_EDIT_CATEGORY" type="lum_contentAdministrationEditPropertyPage"/>
+
+		<interface id="administration" name="STR_ADMINISTRATION" type="lum_contentAdministrationList" />
+			
+		<interface id="add" name="STR_ADD" type="lum_contentAdministrationAddPropertyPage"/>
+		
+		<interface id="edit" name="STR_EDIT" type="lum_contentAdministrationEditPropertyPage"/>
+		
+		<interface id="administrationGallery" name="STR_ADMINISTRATION_GALLERY" type="lum_douiAdministrationList">
+			<!-- isRuntimeOnly>true</isRuntimeOnly-->
+		</interface>
+		
+		<interface id="addGallery" name="STR_ADD_GALLERY" type="lum_douiAdministrationAddPropertyPage"/>
+		
+		<interface id="editGallery" name="STR_EDIT_GALLERY" type="lum_douiAdministrationEditPropertyPage"/>
+		
+	</interfaces>
+
+</serviceDefinition>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="previ" default="update.all">
+	<property name="portal.dir" location="../../lumisportal"/>
+	<taskdef name="lumis" classname="lumis.lumisant.task.LumisTask" >
+		<classpath  >
+			<fileset  dir="${portal.dir}/www/WEB-INF/lib">
+				<include name="**.jar"/>
+			</fileset>
+			<fileset dir="${portal.dir}/lib">
+				<include name="**.jar"/> 
+			</fileset>
+			<fileset dir="${portal.dir}/lib/shared">
+				<include name="**.jar"/>
+			</fileset>
+		</classpath>
+		<classpath location="${portal.dir}/www/WEB-INF/classes"/>
+	</taskdef>
+	<target name="ignore_svn"> 
+		<defaultexcludes add="**/.svn" />
+		<defaultexcludes add="**/.svn/**" />
+		<defaultexcludes add="**/_svn" />
+		<defaultexcludes add="**/_svn/**" />
+	</target>
+	<target name="update.all" description="Updates all files to deploy directory" depends="ignore_svn">
+		<!--lumis lumisdatapath="${portal.dir}/lumisdata" portalaccess="proxy" login="admin" senha=""--> 
+			<copy todir="${portal.dir}/lumisdata">
+				<fileset dir="src/main">
+					<include name="def/**"/>
+					<include name="structure/**"/>
+					<include name="deploy/**"/>
+				</fileset>
+		    </copy>
+			<copy todir="${portal.dir}/www">
+	           <fileset dir="src/main/static">
+	               <include name="WEB-INF/**"/>
+	             <include name="**/**"/>
+	           </fileset>
+	       </copy>
+			<!--copy todir="${portal.dir}/lumisdata/def">
+		         <fileset dir="src/main">
+		         	<include name="layoutFile/**"/>
+		         </fileset>
+	     	</copy-->
+			<copy todir="${portal.dir}/lumisdata/def">
+		         <fileset dir="src/main/themes">
+		         	<include name="gp/**"/>
+		         </fileset>
+	     	</copy>
+		<!--/lumis-->
+	</target>
+</project>

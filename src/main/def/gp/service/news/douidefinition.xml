@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doui:douiDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doui="http://www.lumis.com.br/lumisportal/xsd/doui"  xmlns:control="http://www.lumis.com.br/douicontrols">
+	<service id="gp.service.news">
+		<sources>
+			<source id="default" type="contentTable">
+				<table>gp_News</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="categoryId" name="STR_CATEGORY" dataType="guid" required="true" lookupRelationId="category" lookupFieldId="title"/>
+					<field id="title" name="STR_TITLE" dataType="string" isPrimaryName="true" required="true"/>
+					<field id="introductionImage" name="STR_INTRODUCTION_IMAGE" dataType="media" />
+					<field id="introduction" name="STR_INTRODUCTION" dataType="text" isIntroduction="true" />
+					<field id="content" name="STR_CONTENT" dataType="html" required="true"/>
+				</fields>
+				<metaData>
+					<comments/>
+					<highlight/>
+					<publishToSocialNetwork/>
+					<publishStartDate/>
+					<publishEndDate/>
+					<serviceInstanceIsolation/>
+					<workflow/>
+				</metaData>
+				<relations>
+					<relation id="category">
+						<relationField fieldId="categoryId" foreignFieldId="contentId"/>
+					</relation>
+				</relations>
+			</source>
+
+			<source id="category" type="contentTable">
+				<table>gp_NewsCategory</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="title" name="STR_TITLE" dataType="string" isPrimaryName="true" required="true"/>
+				</fields>
+				<metaData>
+					<serviceInstanceIsolation/>
+				</metaData>
+			</source>
+			
+			<source id="gallery" type="table">
+				<table>gp_Gallery</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="string" isPrimaryKey="true" />
+					<field id="parentContent" name="STR_PARENT_CONTENT" dataType="string" />
+					<field id="type" name="STR_TYPE" dataType="integer">
+						<options>
+							<option value="0">Imagem</option>
+							<option value="1">Vídeo</option>
+						</options>
+					</field>
+					<field id="media" name="STR_MEDIA" dataType="media" />
+					<field id="position" name="STR_POSITION" dataType="integer" />
+				</fields>
+			</source>
+		</sources>
+	</service>
+	<interfaces>
+		<interface id="administrationCategory">
+			<sources>
+				<source id="category">
+					<fields>
+						<field id="title"/>
+						<field id="lastModifiedDate" display="true"/>
+					</fields>
+				</source>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_interfaceHeader/>
+					<control:lum_autoAdminListButtons addInterfaceId="addCategory" editInterfaceId="editCategory" />
+					<control:lum_adminList id="adminList" dataId="id" sourceId="category"/>
+				</control:lum_form>
+			</controls>
+		</interface>
+		
+		<interface id="addCategory">
+			<sources>
+				<source id="category"/>
+			</sources>
+		</interface>
+		
+		<interface id="editCategory">
+			<sources>
+				<source id="category"/>
+			</sources>
+		</interface>
+			
+		<interface id="administration">
+			<sources>
+				<source id="default">
+					<fields >
+						<field id="title"/>
+						<field id="categoryId" doLookup="true"/>
+						<field id="publishStartDate"/>
+						<field id="workflowState"/>
+					</fields>
+				</source>
+				<source id="category"/>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_interfaceHeader/>
+					<control:lum_interfaceHeaderButtons>
+						<control:lum_addButton interfaceId="add"/>
+					    <control:lum_editButton interfaceId="edit"/>
+						<control type="lum_deleteButton" />
+						<control:lum_editButton id="add_media_button" text="Adicionar Mídia" interfaceId="administrationGallery" />
+					</control:lum_interfaceHeaderButtons>
+					<control:lum_adminList id="adminList" dataId="id" sourceId="default"/>
+				</control:lum_form>
+			</controls>
+		</interface>
+		
+		<interface id="add">
+			<sources>
+				<source id="default">
+					<fields inherit="all">
+						<field id="title"/>
+						<field id="categoryId">
+							<defaultInputControl>
+								<control:lum_dropDownList optionsSourceId="category" valueFieldId="contentId"/>
+							</defaultInputControl>
+						</field>
+						<field id="introductionImage"/>
+						<field id="introduction"/>
+						<field id="content"/>
+					</fields>
+				</source>
+				<source id="category"/>
+			</sources>
+		</interface>
+		
+		<interface id="edit">
+			<sources>
+				<source id="default">
+					<fields inherit="all">
+						<field id="title"/>
+						<field id="categoryId">
+							<defaultInputControl>
+								<control:lum_dropDownList optionsSourceId="category" valueFieldId="contentId"/>
+							</defaultInputControl>
+						</field>
+						<field id="introductionImage"/>
+						<field id="introduction"/>
+						<field id="content"/>
+					</fields>
+				</source>
+				<source id="category"/>
+			</sources>
+		</interface>
+		
+		<interface id="listCategory">
+			<sources>
+				<source id="category"/>
+			</sources>
+			<hyperLinks>
+				<hyperLink interfaceId="list">
+					<target type="page"/>
+					<parameters>
+						<parameter name="lumItemId" dataId="contentId"/>
+					</parameters>
+				</hyperLink>
+			</hyperLinks>
+		</interface>
+				
+		<interface id="list">
+			<sources>
+				<source id="default">
+					<filters>
+						<filter id="categoryId" requestParameterName="lumItemId" hidden="true"/>
+					</filters>
+				</source>
+			</sources>
+		</interface>
+		
+		<interface id="details">
+			<sources>
+				<source id="default">
+					<fields>
+						<field id="categoryId" doLookup="true"/>
+						<field id="title"/>
+						<field id="introductionImage"/>
+						<field id="introduction"/>
+						<field id="content"/>
+					</fields>
+				</source>
+				<source id="category"/>
+			</sources>
+		</interface>
+		
+		<interface id="administrationGallery">
+			<sources>
+				<source id="gallery">
+					<fields>
+						<field id="media" />
+						<field id="type" doOptionLookup="true"/>
+						<field id="position" />
+					</fields>
+					<filters>
+						<filter id="parentContent" required="true"/>
+					</filters>
+				</source>
+				<source id="default">
+					<filters>
+						<filter id="id" requestParameterName="id" hidden="true"/>
+					</filters>
+				</source>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_filters id="filterDefault" sourceId="default" />
+					<control:lum_inputHidden id="contentId" sourceId="default">
+						<setSourceParameter sourceId="gallery" parameterName="parentContent" />
+					</control:lum_inputHidden>
+					<control:lum_interfaceHeader/>
+					<control:lum_interfaceHeaderButtons>
+						<control:lum_addButton id="addButton" interfaceId="addPhotograph" isPrimary="true">
+							<onClick type="popupRunTimeInterface" keepParentActive="false">
+								<interfaceId>addGallery</interfaceId>
+								<addParameters>
+									<parameter name="parentContent">
+										<value type="getValue" controlId="contentId" />
+									</parameter>
+								</addParameters>
+							</onClick>
+						</control:lum_addButton>
+						<control:lum_editButton id="editButton" interfaceId="editGallery" />
+						<control:lum_deleteButton id="deleteButton" processActionId="delete"/>
+					</control:lum_interfaceHeaderButtons>
+					<control:lum_adminList id="adminList" dataId="id" sourceId="gallery"/>
+				</control:lum_form>
+			</controls>
+		</interface>
+		
+		<interface id="addGallery">
+			<sources>
+				<source id="gallery">
+					<fields inherit="all" />	
+				</source>
+			</sources>
+			<controls>
+                <control:lum_form>
+                    <control:lum_propertyPage renderButtonsType="standard" >
+                       	<control:lum_inputHidden id="parentContent" requestParameterName="lumItemId"/>
+						<control:lum_autoLayoutFields id="fields1">
+							<field id="type"/>
+							<field id="position" />
+                         	<field id="media" />
+                         </control:lum_autoLayoutFields>
+                    </control:lum_propertyPage>
+                </control:lum_form>
+            </controls>
+		</interface>
+		
+		<interface id="editGallery">
+			<sources>
+				<source id="gallery">
+					<fields inherit="all">
+						<field id="parentContent" readOnly="true" display="false"/>
+					</fields>	
+				</source>
+			</sources>
+		</interface>
+	</interfaces>
+</doui:douiDefinition>

@@ -1,0 +1,16 @@
+Definição
+==============================
+
+- Cadastrar colunas
+- Cadastrar artigos para colunas
+
+
+Interfaces
+==============================
+
+- Administração de Colunas
+- Administração de Artigos
+- Lista de Colunas
+- Lista de Artigos
+- Detalhes da Coluna
+- Detalhes do Artigo

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<strings>
+	<string id="STR_SERVICE_NAME"><![CDATA[Guias e Portais - Colunas]]></string>
+	<string id="STR_SERVICE_DESCRIPTION"><![CDATA[Serviço que possibilita o cadastro de colunas]]></string>
+	<string id="STR_INTRODUCTION_IMAGE">Imagem de Introdução (000 x 000 px)</string>
+	<string id="STR_INTRODUCTION">Introdução</string>
+	<string id="STR_CONTENT">Conteúdo</string>
+	<string id="STR_COLUMNIST">Colunista</string>
+	<string id="STR_TITLE">Título</string>
+	<string id="STR_COLUMN_ADMINISTRATION">Administração de Coluna</string>
+	<string id="STR_ADMINISTRATION">Administração de Conteúdo</string>
+	<string id="STR_LIST_COLUMN">Lista de Colunas</string>
+	<string id="STR_DETAILS_COLUMN">Detalhes da Coluna</string>
+	<string id="STR_ADD_COLUMN">Adicionar Coluna</string>
+	<string id="STR_EDIT_COLUMN">Editar Coluna</string>
+	<string id="STR_COLUMN_IMAGE">Imagem da Coluna (000 x 000 px)</string>
+</strings>

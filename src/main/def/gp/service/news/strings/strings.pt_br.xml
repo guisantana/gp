@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<strings>
+	<string id="STR_SERVICE_NAME"><![CDATA[Guias e Portais - Matérias]]></string>
+	<string id="STR_SERVICE_DESCRIPTION"><![CDATA[Serviço que possibilita o cadastro de matérias]]></string>
+	<string id="STR_TITLE">Título</string>
+	<string id="STR_INTRODUCTION_IMAGE">Imagem de Introdução</string>
+	<string id="STR_INTRODUCTION">Introdução</string>
+	<string id="STR_CONTENT_IMAGE">Imagem Principal</string>
+	<string id="STR_CONTENT">Conteúdo</string>
+	<string id="STR_CATEGORY_ADMINISTRATION">Administração de Categoria</string>
+	<string id="STR_LIST_CATEGORY">Lista de Categorias</string>
+	<string id="STR_ADD_CATEGORY">Adicionar Categoria</string>
+	<string id="STR_EDIT_CATEGORY">Editar Categoria</string>
+	<string id="STR_ADMINISTRATION">Administração de Conteúdo</string>
+</strings>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doui:douiDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doui="http://www.lumis.com.br/lumisportal/xsd/doui"  xmlns:control="http://www.lumis.com.br/douicontrols">
+	<service id="gp.service.highlight">
+		<sources>
+			<source id="default" type="contentTable">
+				<table>gp_Highlight</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="category" name="STR_CATEGORY" dataType="string" required="true" />
+					<field id="title" name="STR_TITLE" dataType="string" isPrimaryName="true" required="true"/>
+					<field id="image" name="STR_IMAGE" dataType="media"/>
+					<field id="introduction" name="STR_INTRODUCTION" dataType="text" isIntroduction="true" required="true"/>
+					<field id="position" name="STR_POSITION" dataType="integer" defaultValue="0"/>
+					<field id="type" name="STR_TYPE" dataType="integer">
+						<options>
+							<option value="0">STR_URL</option>
+							<option value="1">STR_CONTENT</option>
+							<option value="2">STR_DOCUMENT</option>
+						</options>
+					</field>
+					<field id="content" name="STR_CONTENT" dataType="html" requiredWhenVisible="true"/>
+					<field id="url" name="STR_URL" dataType="string" requiredWhenVisible="true"/>
+					<field id="clickPopup" name="STR_CLICK_POPUP" dataType="boolean"/>
+					<field id="documentId" name="STR_DOCUMENT" dataType="document" requiredWhenVisible="true"/>
+				</fields>
+				<metaData>
+					<comments/>
+					<highlight/>
+					<publishToSocialNetwork/>
+					<publishStartDate/>
+					<publishEndDate/>
+					<serviceInstanceIsolation/>
+					<workflow/>
+				</metaData>
+			</source>
+		</sources>
+	</service>
+	
+	<interfaces>
+	
+		<interface id="list">
+			<sources>
+				<source id="default">
+					<fields>
+						<field id="category"/>
+						<field id="title"/>
+						<field id="introduction"/>
+						<field id="image"/>
+						<field id="type"/>
+						<field id="url"/>
+						<field id="clickPopup"/>
+						<field id="documentId"/>
+					</fields>
+					<orderBy>
+						<field direction="ascending" id="position"/>
+					</orderBy>
+				</source>
+			</sources>
+		</interface>
+	
+		<interface id="administration">
+			<sources>
+				<source id="default">
+					<fields >
+						<field id="title"/>
+						<field id="type" doOptionLookup="true"/>
+						<field id="position"/>
+						<field id="publishStartDate"/>
+						<field id="workflowState"/>
+					</fields>
+				</source>
+			</sources>
+		</interface>
+	
+		<interface id="add">
+			<sources>
+				<source id="default" readData="never"/>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_propertyPage>
+						<control:lum_controlGroup title="STR_BASIC_INFORMATION" style="height:280px" visualAid="true">
+							<control:lum_autoLayoutContentFields>
+								<field id="category" />
+								<field id="title" />
+								<field id="image" />
+								<field id="introduction">
+									<value>
+										<control:lum_inputTextArea id="introduction" rows="2" cols="40"/>
+									</value>
+								</field>
+							</control:lum_autoLayoutContentFields>
+							<control:lum_div id="linkProperties">
+								<control:lum_autoLayoutContentFields id="linkPropertiesFields">
+									<field id="position" />
+									<field id="type">
+										<value>
+											<control:lum_dropDownList id="type" renderBlankOption="false">
+												<onChange type="script">
+													<script>linkChooseContentPane(document.getElementById("type"))</script>
+												</onChange>
+											</control:lum_dropDownList>
+										</value>
+									</field>
+								</control:lum_autoLayoutContentFields>
+								<control:lum_div id="divLinkContent">
+									<control:lum_autoLayoutContentFields id="divLinkContentFields">
+										<field id="content" />
+									</control:lum_autoLayoutContentFields>
+								</control:lum_div>
+								<control:lum_div id="divLinkUrl">
+									<control:lum_autoLayoutContentFields id="divLinkUrlFields">
+										<field id="url">
+											<value>
+												<control:lum_inputText id="url" defaultValue="http://">
+													<control:lum_regularExpressionValidator id="urlREWVValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" validateOnlyIfVisible="true" />
+													<control:lum_requiredValueValidator id="urlRequiredValueWVValidator" validateOnlyIfVisible="true"/>
+												</control:lum_inputText>
+											</value>
+										</field>
+										<field id="clickPopup">
+											<value>
+												<control:lum_checkBox id="clickPopup" />
+											</value>
+										</field>
+									</control:lum_autoLayoutContentFields>
+								</control:lum_div>
+								<control:lum_div id="divLinkDocument">
+									<control:lum_autoLayoutContentFields id="divLinkDocumentFields">
+										<field id="documentId">
+											<value>
+												<control:lum_documentPicker id="documentId"/>
+											</value>
+										</field>
+									</control:lum_autoLayoutContentFields>
+								</control:lum_div>
+							</control:lum_div>
+							
+						</control:lum_controlGroup>
+						
+						<control:lum_autoLayoutMetaDataInformation/>
+						
+						<control:lum_script disable-output-escaping="yes">
+							<script> function linkChooseContentPane(type) { var d = document; var choice = type.selectedIndex;
+								switch(choice) { case 0: d.getElementById("divLinkContent").style.display = "none"; d.getElementById("divLinkUrl").style.display = ""; d.getElementById("divLinkDocument").style.display = "none"; break; case 1: d.getElementById("divLinkContent").style.display = ""; d.getElementById("divLinkUrl").style.display = "none"; d.getElementById("divLinkDocument").style.display = "none"; break; case 2: d.getElementById("divLinkContent").style.display = "none"; d.getElementById("divLinkUrl").style.display = "none"; d.getElementById("divLinkDocument").style.display = ""; break; } }
+								function onPopupChange() { var pCheck = document.getElementById("linkClickPopup"); var pPopUpProperties = document.getElementById("linkPopupProperties");
+								if(pCheck.checked) pPopUpProperties.disabled = false; else pPopUpProperties.disabled = true; };
+								linkChooseContentPane(document.getElementById("type")); onPopupChange(); </script>
+						</control:lum_script>
+					</control:lum_propertyPage>
+				</control:lum_form>
+			</controls>
+		</interface>
+		
+		<interface id="edit">
+			<sources>
+				<source id="default"/>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_filters id="filters" sourceId="default"/>
+					<control:lum_propertyPage>
+						<control:lum_controlGroup title="STR_BASIC_INFORMATION" style="height:280px" visualAid="true">
+							<control:lum_autoLayoutContentFields>
+								<field id="category" />
+								<field id="title" />
+								<field id="image" />
+								<field id="introduction">
+									<value>
+										<control:lum_inputTextArea id="introduction" rows="2" cols="40"/>
+									</value>
+								</field>
+							</control:lum_autoLayoutContentFields>
+							<control:lum_div id="linkProperties">
+								<control:lum_autoLayoutContentFields id="linkPropertiesFields">
+									<field id="position" />
+									<field id="type">
+										<value>
+											<control:lum_dropDownList id="type" renderBlankOption="false">
+												<onChange type="script">
+													<script>linkChooseContentPane(document.getElementById("type"))</script>
+												</onChange>
+											</control:lum_dropDownList>
+										</value>
+									</field>
+								</control:lum_autoLayoutContentFields>
+								<control:lum_div id="divLinkContent">
+									<control:lum_autoLayoutContentFields id="divLinkContentFields">
+										<field id="content" />
+									</control:lum_autoLayoutContentFields>
+								</control:lum_div>
+								<control:lum_div id="divLinkUrl">
+									<control:lum_autoLayoutContentFields id="divLinkUrlFields">
+										<field id="url">
+											<value>
+												<control:lum_inputText id="url" defaultValue="http://">
+													<control:lum_regularExpressionValidator id="urlREWVValidator" expression=".+:(//)?[^/]+.*" errorMessage="STR_INVALID_URL" validateOnlyIfVisible="true" />
+													<control:lum_requiredValueValidator id="urlRequiredValueWVValidator" validateOnlyIfVisible="true"/>
+												</control:lum_inputText>
+											</value>
+										</field>
+										<field id="clickPopup">
+											<value>
+												<control:lum_checkBox id="clickPopup" />
+											</value>
+										</field>
+									</control:lum_autoLayoutContentFields>
+								</control:lum_div>
+								<control:lum_div id="divLinkDocument">
+									<control:lum_autoLayoutContentFields id="divLinkDocumentFields">
+										<field id="documentId">
+											<value>
+												<control:lum_documentPicker id="documentId"/>
+											</value>
+										</field>
+									</control:lum_autoLayoutContentFields>
+								</control:lum_div>
+							</control:lum_div>
+							
+						</control:lum_controlGroup>
+						
+						<control:lum_autoLayoutMetaDataInformation/>
+						
+						<control:lum_script disable-output-escaping="yes">
+							<script> function linkChooseContentPane(type) { var d = document; var choice = type.selectedIndex;
+								switch(choice) { case 0: d.getElementById("divLinkContent").style.display = "none"; d.getElementById("divLinkUrl").style.display = ""; d.getElementById("divLinkDocument").style.display = "none"; break; case 1: d.getElementById("divLinkContent").style.display = ""; d.getElementById("divLinkUrl").style.display = "none"; d.getElementById("divLinkDocument").style.display = "none"; break; case 2: d.getElementById("divLinkContent").style.display = "none"; d.getElementById("divLinkUrl").style.display = "none"; d.getElementById("divLinkDocument").style.display = ""; break; } }
+								function onPopupChange() { var pCheck = document.getElementById("linkClickPopup"); var pPopUpProperties = document.getElementById("linkPopupProperties");
+								if(pCheck.checked) pPopUpProperties.disabled = false; else pPopUpProperties.disabled = true; };
+								linkChooseContentPane(document.getElementById("type")); onPopupChange(); </script>
+						</control:lum_script>
+					</control:lum_propertyPage>
+				</control:lum_form>
+			</controls>
+		</interface>
+	</interfaces>
+</doui:douiDefinition>

@@ -1,0 +1,9 @@
+CREATE TABLE gp_Gallery (
+	id char(32) NOT NULL,
+	parentContent char(32) DEFAULT NULL,
+	type INT DEFAULT 0 NOT NULL,
+	media char(32) NOT NULL,
+	position INT DEFAULT 0 NULL,
+	CONSTRAINT GP_PK_GALLERY PRIMARY KEY (id)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8;

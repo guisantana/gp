@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<strings>
+	<string id="STR_SERVICE_NAME"><![CDATA[Guias e Portais - Destaque]]></string>
+	<string id="STR_SERVICE_DESCRIPTION"><![CDATA[Serviço que possibilita o cadastro de destaques]]></string>
+	<string id="STR_TITLE">Título</string>
+	<string id="STR_IMAGE">Imagem de Introdução (000 x 000)</string>
+	<string id="STR_INTRODUCTION">Introdução</string>
+	<string id="STR_CATEGORY">Categoria</string>
+	<string id="STR_URL">Url</string>
+	<string id="STR_CONTENT">Conteúdo</string>
+	<string id="STR_DOCUMENT">Documento</string>
+	<string id="STR_CLICK_POPUP">Nova Janela</string>
+	<string id="STR_POSITION">Posição</string>
+</strings>

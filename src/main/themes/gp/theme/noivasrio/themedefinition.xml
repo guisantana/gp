@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Revision: 14442 $ $Date: 2012-06-29 16:01:46 -0300 (Fri, 29 Jun 2012) $ -->
+<themeDefinition xmlns="http://www.lumis.com.br/lumisportal/xsd/theme">
+	<name>
+		Tema Guias e Portais - Noivas Rio
+	</name>
+	<description>
+		Tema do site Noivas Rio
+	</description>
+</themeDefinition>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Revision: 7138 $ $Date: 2007-06-01 11:49:25 -0300 (Fri, 01 Jun 2007) $ -->
+<serviceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.lumis.com.br/lumisportal/xsd/servicedefinition.xsd">
+
+	<service id="gp.service.column" name="STR_SERVICE_NAME" type="lum_content">
+		<description>STR_SERVICE_DESCRIPTION</description>
+		<workflow enabled="true"/>
+	</service>
+
+	<interfaces>
+		
+		<!-- administration interfaces -->
+		
+		<interface id="administrationColumn" name="STR_COLUMN_ADMINISTRATION" type="lum_contentAdministrationList"/>
+			
+		<interface id="addColumn" name="STR_ADD_COLUMN" type="lum_contentAdministrationAddPropertyPage"/>
+		
+		<interface id="editColumn" name="STR_EDIT_COLUMN" type="lum_contentAdministrationEditPropertyPage"/>
+		
+
+		<interface id="administration" name="STR_ADMINISTRATION" type="lum_contentAdministrationList"/>
+			
+		<interface id="add" name="STR_ADD" type="lum_contentAdministrationAddPropertyPage"/>
+		
+		<interface id="edit" name="STR_EDIT" type="lum_contentAdministrationEditPropertyPage"/>		
+		
+		<!-- user interfaces -->
+
+		<interface id="listColumn" name="STR_LIST_COLUMN" type="lum_contentList">
+			<styles>
+				<style name="mainHighlight" path="gp/service/column/style/menu_columnList.xsl" id="menuCategoryList" isDefault="true"/>
+			</styles>
+		</interface>
+		
+		<interface id="detailsColumn" name="STR_DETAILS_COLUMN" type="lum_contentDetails"/>
+		
+		<interface id="list" name="STR_LIST" type="lum_contentList"/>
+		
+		<interface id="details" name="STR_DETAILS" type="lum_contentDetails"/>
+		
+
+	</interfaces>
+
+</serviceDefinition>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doui:douiDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doui="http://www.lumis.com.br/lumisportal/xsd/doui"  xmlns:control="http://www.lumis.com.br/douicontrols">
+	<service id="gp.service.column">
+		<sources>
+			<source id="default" type="contentTable">
+				<table>gp_ColumnContent</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="title" name="STR_TITLE" dataType="string" isPrimaryName="true" required="true"/>
+					<field id="columnistId" name="STR_COLUMNIST" dataType="guid" required="true" lookupRelationId="column" lookupFieldId="title"/>
+					<field id="introductionImage" name="STR_INTRODUCTION_IMAGE" dataType="media" />
+					<field id="introduction" name="STR_INTRODUCTION" dataType="text" isIntroduction="true" required="true"/>
+					<field id="content" name="STR_CONTENT" dataType="html" required="true"/>
+				</fields>
+				<metaData>
+					<comments/>
+					<highlight/>
+					<publishToSocialNetwork/>
+					<publishStartDate/>
+					<publishEndDate/>
+					<serviceInstanceIsolation/>
+					<workflow/>
+				</metaData>
+				<relations>
+					<relation id="column">
+						<relationField fieldId="columnistId" foreignFieldId="contentId"/>
+					</relation>
+				</relations>
+			</source>
+
+			<source id="column" type="contentTable">
+				<table>gp_Column</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="guid" isPrimaryKey="true" display="false" />
+					<field id="title" name="STR_TITLE" dataType="string" isPrimaryName="true" required="true"/>
+					<field id="columnist" name="STR_COLUMNIST" dataType="string" required="true"/>
+					<field id="image" name="STR_COLUMN_IMAGE" dataType="media" />
+					<field id="description" name="STR_DESCRIPTION" dataType="html" isIntroduction="true" required="true"/>
+				</fields>
+				<metaData>
+					<serviceInstanceIsolation/>
+				</metaData>
+			</source>
+			
+		</sources>
+	</service>
+	
+	<interfaces>
+	
+		<interface id="administrationColumn">
+			<sources>
+				<source id="column">
+					<fields>
+						<field id="title"/>
+						<field id="columnist"/>
+						<field id="lastModifiedDate" display="true"/>
+					</fields>
+				</source>
+			</sources>
+			<controls>
+				<control:lum_form>
+					<control:lum_interfaceHeader/>
+					<control:lum_autoAdminListButtons addInterfaceId="addColumn" editInterfaceId="editColumn" />
+					<control:lum_adminList id="adminList" dataId="id" sourceId="column"/>
+				</control:lum_form>
+			</controls>
+		</interface>
+		
+		<interface id="addColumn">
+			<sources>
+				<source id="column"/>
+			</sources>
+		</interface>
+		
+		<interface id="editColumn">
+			<sources>
+				<source id="column"/>
+			</sources>
+		</interface>
+			
+		<interface id="administration">
+			<sources>
+				<source id="default">
+					<fields >
+						<field id="title"/>
+						<field id="columnistId" doLookup="true"/>
+						<field id="publishStartDate"/>
+						<field id="workflowState"/>
+					</fields>
+				</source>
+				<source id="column"/>
+			</sources>
+		</interface>
+		
+		<interface id="add">
+			<sources>
+				<source id="default">
+					<fields inherit="all">
+						<field id="title"/>
+						<field id="columnistId">
+							<defaultInputControl>
+								<control:lum_dropDownList optionsSourceId="column" valueFieldId="contentId"/>
+							</defaultInputControl>
+						</field>
+						<field id="introductionImage"/>
+						<field id="introduction"/>
+						<field id="content"/>
+					</fields>
+				</source>
+				<source id="column"/>
+			</sources>
+		</interface>
+		
+		<interface id="edit">
+			<sources>
+				<source id="default">
+					<fields inherit="all">
+						<field id="title"/>
+						<field id="columnistId">
+							<defaultInputControl>
+								<control:lum_dropDownList optionsSourceId="column" valueFieldId="contentId"/>
+							</defaultInputControl>
+						</field>
+						<field id="introductionImage"/>
+						<field id="introduction"/>
+						<field id="content"/>
+					</fields>
+				</source>
+				<source id="column"/>
+			</sources>
+		</interface>
+		
+		<interface id="listColumn">
+			<sources>
+				<source id="column"/>
+			</sources>
+		</interface>
+		
+		<interface id="detailsColumn">
+			<sources>
+				<source id="column"/>
+			</sources>
+		</interface>
+		
+		<interface id="list">
+			<sources>
+				<source id="default">
+					<filters>
+						<filter id="columnistId" requestParameterName="lumItemId" hidden="true"/>
+					</filters>
+				</source>
+			</sources>
+		</interface>
+		
+		<interface id="details">
+			<sources>
+				<source id="default">
+					<fields>
+						<field id="columnistId" doLookup="true"/>
+						<field id="title"/>
+						<field id="introductionImage"/>
+						<field id="introduction"/>
+						<field id="content"/>
+					</fields>
+				</source>
+				<source id="column"/>
+			</sources>
+		</interface>
+		
+	</interfaces>
+</doui:douiDefinition>

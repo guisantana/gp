@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doui:douiDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:doui="http://www.lumis.com.br/lumisportal/xsd/doui" xmlns:control="http://www.lumis.com.br/douicontrols">
+	<service id="gp.service.gallery">
+		<sources>
+			<source id="default" type="table">
+				<table>gp_Gallery</table>
+				<fields>
+					<field id="id" name="STR_ID" dataType="string" isPrimaryKey="true" />
+					<field id="parentContent" name="STR_PARENT_CONTENT" dataType="string" />
+					<field id="type" name="STR_TYPE" dataType="integer">
+						<options>
+							<option value="0">Imagem</option>
+							<option value="1">Vídeo</option>
+						</options>
+					</field>
+					<field id="media" name="STR_MEDIA" dataType="media" />
+					<field id="position" name="STR_POSITION" dataType="integer" />
+				</fields>
+			</source>
+		</sources>
+	</service>
+	<interfaces>
+	
+		<interface id="administration">
+			<sources>
+				<source id="default">
+					<fields>
+						<field id="media" />
+						<field id="type" />
+						<field id="position" />
+					</fields>
+					<filters>
+						<filter id="parentContent" requestParameterName="lumItemId" hidden="true"/>
+					</filters>
+				</source>
+			</sources>
+		</interface>
+		
+		<interface id="add">
+			<sources>
+				<source id="default">
+					<fields inherit="all" />	
+				</source>
+			</sources>
+			<controls>
+	                <control:lum_form>
+	                    <control:lum_propertyPage renderButtonsType="standard" >
+	                       	<control:lum_inputHidden id="parentContent" requestParameterName="lumItemId" />
+							<control:lum_autoLayoutFields id="fields1">
+	                          		<field id="media" />
+									<field id="position" />
+	                          	</control:lum_autoLayoutFields>
+	                        <control:lum_autoLayoutMetaDataInformation />
+	                    </control:lum_propertyPage>
+	                </control:lum_form>
+	            </controls>
+		</interface>
+		
+		<interface id="edit">
+			<sources>
+				<source id="default">
+					<fields inherit="all">
+						<field id="parentContent" readOnly="true" display="false"/>
+					</fields>	
+				</source>
+			</sources>
+		</interface>
+		
+	</interfaces>
+</doui:douiDefinition>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strings>
+	<string id="STR_SERVICE_NAME">Guias e Portais - Galeria de Mídias</string>
+	<string id="STR_SERVICE_DESCRIPTION">Serviço que possibilita o cadastro de mídias associadas a conteúdos</string>
+	<string id="STR_MEDIA">Mídia</string>
+	<string id="STR_PARENT_CONTENT">Id do conteúdo pai</string>
+	<string id="STR_POSITION">Posição</string>
+	<string id="STR_ADMINISTRATION">Administração de Imagens de Tópicos</string>
+</strings>
